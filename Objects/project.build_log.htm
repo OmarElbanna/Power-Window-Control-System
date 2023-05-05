@@ -21,20 +21,20 @@ Target DLL:      lmidk-agdi.dll V???
 Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
-D:\KEIL Projects\Project\project.uvprojx
+D:\Github\Power-Window-Control-System\project.uvprojx
 Project File Date:  05/05/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Target 1'
 assembling startup_TM4C123.s...
-compiling main.c...
-compiling freertos_evr.c...
-compiling port.c...
-compiling heap_1.c...
-compiling system_TM4C123.c...
 compiling motor.c...
+compiling system_TM4C123.c...
+compiling freertos_evr.c...
+compiling heap_1.c...
 compiling list.c...
+compiling main.c...
+compiling port.c...
 compiling timers.c...
 compiling queue.c...
 compiling tasks.c...
@@ -80,31 +80,31 @@ Package Vendor: Keil
       Include file:  Config/ARMCM/FreeRTOSConfig.h
 
    * Component: ARM.FreeRTOS::RTOS:Core:10.0.1
+      Source file:   Source/list.c
+      Include file:  Source/include/semphr.h
+      Include file:  Source/include/FreeRTOS.h
+      Include file:  Source/include/queue.h
+      Include file:  Source/include/task.h
+      Source file:   Source/queue.c
+      Source file:   Source/tasks.c
+      Source file:   Source/portable/GCC/ARM_CM4F/port.c
       Include file:  CMSIS/RTOS2/FreeRTOS/Include/freertos_evr.h
       Source file:   CMSIS/RTOS2/FreeRTOS/Source/freertos_evr.c
-      Include file:  Source/include/FreeRTOS.h
-      Include file:  Source/include/task.h
-      Source file:   Source/tasks.c
-      Include file:  Source/include/semphr.h
-      Include file:  Source/include/queue.h
-      Source file:   Source/portable/GCC/ARM_CM4F/port.c
-      Source file:   Source/list.c
-      Source file:   Source/queue.c
 
    * Component: ARM.FreeRTOS::RTOS:Heap:Heap_1:10.0.1
       Source file:   Source/portable/MemMang/heap_1.c
 
    * Component: ARM.FreeRTOS::RTOS:Timers:10.0.1
-      Include file:  Source/include/timers.h
       Source file:   Source/timers.c
+      Include file:  Source/include/timers.h
 
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:1.0.1
-      Include file:  Device/Include/TM4C123/TM4C123.h
       Source file:   Device/Source/system_TM4C123.c
       Source file:   Device/Source/ARM/startup_TM4C123.s
-Build Time Elapsed:  00:00:02
+      Include file:  Device/Include/TM4C123/TM4C123.h
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
