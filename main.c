@@ -13,10 +13,19 @@
 #include "semphr.h"
 #include "motor.h"
 
-xSemaphoreHandle semaphore;int x = 0;
+xSemaphoreHandle up_semaphore;
+xSemaphoreHandle down_semaphore;
+SemaphoreHandle_t mutex;
+void delay(int ms)
+{for(int k=0;k<3185;k++)
+			for(int i=0;i<3185;i++)
+		{
+			for(int j=0;j<ms;j++);
+		}
+}
 
 
-void run_motor(void *pv)
+/*void run_motor(void *pv)
 {
 	xSemaphoreTake(semaphore,0);
 	for(;;){
@@ -31,12 +40,35 @@ void run_motor(void *pv)
 		vTaskDelay(pdMS_TO_TICKS(5000));
 	}
 }
+*/
 
-void continous(void* params)
+void motor_up_task(void *params)
 {
+	xSemaphoreTake(up_semaphore,0);
 	for(;;)
 	{
-		x++;
+		xSemaphoreTake(up_semaphore,portMAX_DELAY);
+		xSemaphoreTake(mutex,portMAX_DELAY);
+		motor_stop();
+		vTaskDelay(pdMS_TO_TICKS(5000));
+		motor_run(CLOCKWISE);
+		xSemaphoreGive(mutex);
+	}
+	
+	
+}
+
+void motor_down_task(void *params)
+{
+	xSemaphoreTake(down_semaphore,0);
+	for(;;)
+	{
+		xSemaphoreTake(down_semaphore,portMAX_DELAY);
+		xSemaphoreTake(mutex,portMAX_DELAY);
+		motor_stop();
+		delay(5000);
+		motor_run(ANTICLOCKWISE);
+		xSemaphoreGive(mutex);
 	}
 	
 	
@@ -49,12 +81,25 @@ void continous(void* params)
 
 
 
+
 void GPIOF_Handler(void)
 {
-	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
-	xSemaphoreGiveFromISR(semaphore,&xHigherPriorityTaskWoken);
+	  if(GPIOIntStatus(GPIOF_BASE,true)==1<<0)
+  {
+   portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE; 
+	xSemaphoreGiveFromISR(up_semaphore,&xHigherPriorityTaskWoken);
 	GPIOIntClear(GPIOF_BASE,GPIO_INT_PIN_0);
 	portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
+	
+  }
+	else if(GPIOIntStatus(GPIOF_BASE,true)==1<<4)
+  {
+   portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE; 
+	xSemaphoreGiveFromISR(down_semaphore,&xHigherPriorityTaskWoken);
+	GPIOIntClear(GPIOF_BASE,GPIO_INT_PIN_4);
+	portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
+	
+  }
 	
 }
 
@@ -62,7 +107,9 @@ void GPIOF_Handler(void)
 int main()
 {
 	IntMasterEnable();
-	vSemaphoreCreateBinary(semaphore);
+	vSemaphoreCreateBinary(up_semaphore);
+	vSemaphoreCreateBinary(down_semaphore);
+	mutex = xSemaphoreCreateMutex();
 	
 	motor_init();
 	
@@ -72,13 +119,14 @@ int main()
 	GPIOPinTypeGPIOInput(GPIOF_BASE,GPIO_PIN_0|GPIO_PIN_4);
 	GPIOPadConfigSet(GPIOF_BASE,GPIO_PIN_0|GPIO_PIN_4,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD_WPU);
 	
-	GPIOIntEnable(GPIOF_BASE, GPIO_INT_PIN_0); 
-  GPIOIntTypeSet(GPIOF_BASE, GPIO_PIN_0, GPIO_FALLING_EDGE); 
+	GPIOIntEnable(GPIOF_BASE, GPIO_INT_PIN_0|GPIO_PIN_4); 
+  GPIOIntTypeSet(GPIOF_BASE, GPIO_PIN_0|GPIO_PIN_4, GPIO_FALLING_EDGE); 
   GPIOIntRegister(GPIOF_BASE, GPIOF_Handler);
 	IntPrioritySet(INT_GPIOF, 0xE0);
 
-	xTaskCreate( run_motor, "init", 240, NULL, 2, NULL );
-	xTaskCreate (continous,"init", 240, NULL, 1, NULL);
+	xTaskCreate( motor_down_task, "down", 240, NULL, 2, NULL );
+	xTaskCreate( motor_up_task, "up", 240, NULL, 2, NULL );
+	
 
 
 	vTaskStartScheduler();
