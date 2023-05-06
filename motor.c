@@ -11,7 +11,8 @@ void motor_init(void)
 
 void motor_run(uint8_t direction)
 {
-	motor_stop();
+	GPIOPinWrite(GPIOB_BASE,GPIO_PIN_0|GPIO_PIN_1,GPIO_PIN_1);
+	
 	
 	if(direction==CLOCKWISE)
 	{
