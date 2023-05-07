@@ -11,7 +11,7 @@ void motor_init(void)
 
 void motor_run(uint8_t direction)
 {
-	motor_stop();
+
 	
 	if(direction==CLOCKWISE)
 	{

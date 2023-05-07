@@ -12,15 +12,38 @@
 #include "queue.h"
 #include "semphr.h"
 #include "motor.h"
+bool up_limit = false;
+
+void GPIOE_Handler(void)
+{
+	up_limit = true;
+	GPIOIntClear(GPIOE_BASE,GPIO_INT_PIN_0);
+}
+
+void limit_init()
+{
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
+  while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOE));
+  GPIOUnlockPin(GPIOE_BASE,GPIO_PIN_0);
+	GPIOPinTypeGPIOInput(GPIOE_BASE,GPIO_PIN_0);
+	GPIOPadConfigSet(GPIOE_BASE,GPIO_PIN_0,GPIO_STRENGTH_2MA,GPIO_PIN_TYPE_STD_WPU);
+	
+	GPIOIntEnable(GPIOE_BASE, GPIO_INT_PIN_0); 
+  GPIOIntTypeSet(GPIOE_BASE, GPIO_PIN_0, GPIO_FALLING_EDGE); 
+  GPIOIntRegister(GPIOE_BASE, GPIOE_Handler);
+	IntPrioritySet(INT_GPIOE, 0xA0);
+	
+	
+}
 
 xSemaphoreHandle up_semaphore;
 xSemaphoreHandle down_semaphore;
 SemaphoreHandle_t mutex;
 void delay(int ms)
-{for(int k=0;k<3185;k++)
-			for(int i=0;i<3185;i++)
+{
+			for(int i=0;i<ms;i++)
 		{
-			for(int j=0;j<ms;j++);
+			for(int j=0;j<3180;j++);
 		}
 }
 
@@ -49,12 +72,28 @@ void motor_up_task(void *params)
 	{
 		xSemaphoreTake(up_semaphore,portMAX_DELAY);
 		xSemaphoreTake(mutex,portMAX_DELAY);
+		if (up_limit)
+		{
+			xSemaphoreGive(mutex);
+		}
+		else{
 		motor_stop();
-		vTaskDelay(pdMS_TO_TICKS(5000));
 		motor_run(CLOCKWISE);
+		delay(1000);
+		if (!GPIOPinRead(GPIOF_BASE,GPIO_PIN_0))
+		{
+			// Add a condition for the limit
+		while(!GPIOPinRead(GPIOF_BASE,GPIO_PIN_0) && !up_limit);
+		}
+		else
+		{
+			// Add a condition for the limit
+			while(!up_limit);
+		}
+		motor_stop();
 		xSemaphoreGive(mutex);
 	}
-	
+}
 	
 }
 
@@ -66,8 +105,22 @@ void motor_down_task(void *params)
 		xSemaphoreTake(down_semaphore,portMAX_DELAY);
 		xSemaphoreTake(mutex,portMAX_DELAY);
 		motor_stop();
-		delay(5000);
+		//delay(3000);
+		
 		motor_run(ANTICLOCKWISE);
+		up_limit = false;
+		delay(2000);
+		if (!GPIOPinRead(GPIOF_BASE,GPIO_PIN_4))
+		{
+			// Add a condition for the limit
+		while(!GPIOPinRead(GPIOF_BASE,GPIO_PIN_4));
+		}
+		else
+		{
+			// Add a condition for tha limit
+			while(1);
+		}
+		motor_stop();
 		xSemaphoreGive(mutex);
 	}
 	
@@ -103,7 +156,15 @@ void GPIOF_Handler(void)
 	
 }
 
-
+void idle(void * params)
+{
+	for(;;)
+	{
+		
+	}
+	
+	
+}
 int main()
 {
 	IntMasterEnable();
@@ -111,6 +172,7 @@ int main()
 	vSemaphoreCreateBinary(down_semaphore);
 	mutex = xSemaphoreCreateMutex();
 	
+	limit_init();
 	motor_init();
 	
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
@@ -126,6 +188,7 @@ int main()
 
 	xTaskCreate( motor_down_task, "down", 240, NULL, 2, NULL );
 	xTaskCreate( motor_up_task, "up", 240, NULL, 2, NULL );
+	xTaskCreate( idle, "idle", 240, NULL, 1, NULL );
 	
 
 
