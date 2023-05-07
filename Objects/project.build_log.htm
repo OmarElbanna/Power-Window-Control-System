@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: µVision V5.38.0.0
 Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Omar Elbanna, Ain Shams University, LIC=----
+License Information: Omar Yousef, Ainshams University, LIC=----
  
 Tool Versions:
 Toolchain:       MDK-Lite  Version: 5.38.0.0
@@ -21,25 +21,25 @@ Target DLL:      lmidk-agdi.dll V???
 Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
-D:\KEIL Projects\Project\project.uvprojx
-Project File Date:  05/05/2023
+E:\Rtos project\Power-Window-Control-System\project.uvprojx
+Project File Date:  05/07/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Target 1'
-compiling motor.c...
 assembling startup_TM4C123.s...
-compiling freertos_evr.c...
 compiling list.c...
-compiling system_TM4C123.c...
-compiling heap_1.c...
 compiling main.c...
+compiling motor.c...
+compiling system_TM4C123.c...
+compiling freertos_evr.c...
 compiling port.c...
+compiling heap_1.c...
 compiling timers.c...
-compiling queue.c...
 compiling tasks.c...
+compiling queue.c...
 linking...
-Program Size: Code=10292 RO-data=1472 RW-data=1644 ZI-data=9156  
+Program Size: Code=10984 RO-data=1484 RW-data=1644 ZI-data=9156  
 ".\Objects\project.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -51,13 +51,13 @@ Package Vendor: ARM
    * Component: CORE Version: 5.6.0
 
 Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS-FreeRTOS.10.0.1.pack
-                ARM.CMSIS-FreeRTOS.10.0.1
+                https://www.keil.com/pack/ARM.CMSIS-FreeRTOS.10.5.1.pack
+                ARM.CMSIS-FreeRTOS.10.5.1
                 Bundle of FreeRTOS for Cortex-M and Cortex-A
-   * Component: Config Variant: FreeRTOS Version: 10.0.1
-   * Component: Core Version: 10.0.1
-   * Component: Heap Variant: Heap_1 Version: 10.0.1
-   * Component: Timers Version: 10.0.1
+   * Component: Config Variant: FreeRTOS Version: 10.5.1
+   * Component: Core Variant: Cortex-M Version: 10.5.1
+   * Component: Heap Variant: Heap_1 Version: 10.5.1
+   * Component: Timers Version: 10.5.1
 
 Package Vendor: Keil
                 http://www.keil.com/pack/Keil.TM4C_DFP.1.1.0.pack
@@ -68,42 +68,41 @@ Package Vendor: Keil
 <h2>Collection of Component include folders:</h2>
   ./RTE/RTOS
   ./RTE/_Target_1
-  C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.0.1/CMSIS/RTOS2/FreeRTOS/Include
-  C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.0.1/Source/include
-  C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.0.1/Source/portable/GCC/ARM_CM4F
-  C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
-  C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/Keil/TM4C_DFP/1.1.0/Device/Include/TM4C123
+  C:/Users/Omar MOhamed/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.5.1/CMSIS/RTOS2/FreeRTOS/Include
+  C:/Users/Omar MOhamed/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.5.1/Source/include
+  C:/Users/Omar MOhamed/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.5.1/Source/portable/GCC/ARM_CM4F
+  C:/Users/Omar MOhamed/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Users/Omar MOhamed/AppData/Local/Arm/Packs/Keil/TM4C_DFP/1.1.0/Device/Include/TM4C123
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: ARM.FreeRTOS::RTOS:Config:FreeRTOS:10.0.1
+   * Component: ARM.FreeRTOS::RTOS:Config:FreeRTOS:10.5.1
       Include file:  Config/ARMCM/FreeRTOSConfig.h
 
-   * Component: ARM.FreeRTOS::RTOS:Core:10.0.1
-      Include file:  Source/include/FreeRTOS.h
-      Include file:  Source/include/queue.h
+   * Component: ARM.FreeRTOS::RTOS:Core:Cortex-M:10.5.1
       Source file:   Source/queue.c
       Source file:   Source/list.c
       Source file:   Source/tasks.c
-      Include file:  Source/include/semphr.h
+      Include file:  Source/include/queue.h
       Include file:  Source/include/task.h
+      Include file:  Source/include/semphr.h
+      Include file:  Source/include/FreeRTOS.h
       Source file:   Source/portable/GCC/ARM_CM4F/port.c
       Source file:   CMSIS/RTOS2/FreeRTOS/Source/freertos_evr.c
-      Include file:  CMSIS/RTOS2/FreeRTOS/Include/freertos_evr.h
 
-   * Component: ARM.FreeRTOS::RTOS:Heap:Heap_1:10.0.1
+   * Component: ARM.FreeRTOS::RTOS:Heap:Heap_1:10.5.1
       Source file:   Source/portable/MemMang/heap_1.c
 
-   * Component: ARM.FreeRTOS::RTOS:Timers:10.0.1
-      Include file:  Source/include/timers.h
+   * Component: ARM.FreeRTOS::RTOS:Timers:10.5.1
       Source file:   Source/timers.c
+      Include file:  Source/include/timers.h
 
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:1.0.1
-      Source file:   Device/Source/system_TM4C123.c
       Include file:  Device/Include/TM4C123/TM4C123.h
       Source file:   Device/Source/ARM/startup_TM4C123.s
+      Source file:   Device/Source/system_TM4C123.c
 Build Time Elapsed:  00:00:02
 </pre>
 </body>
