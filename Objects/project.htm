@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Sun May  7 23:09:31 2023
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Mon May  8 20:15:17 2023
 <BR><P>
 <H3>Maximum Stack Usage =        396 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1275,11 +1275,11 @@ Global Symbols
 
 <P><STRONG><a name="[128]"></a>__semihosting_library_function</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, indicate_semi.o(.text), UNUSED)
 
-<P><STRONG><a name="[d]"></a>GPIOD_Handler</STRONG> (Thumb, 358 bytes, Stack size 24 bytes, main.o(.text.GPIOD_Handler))
+<P><STRONG><a name="[d]"></a>GPIOD_Handler</STRONG> (Thumb, 450 bytes, Stack size 24 bytes, main.o(.text.GPIOD_Handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 204<LI>Call Chain = GPIOD_Handler &rArr; xQueueGiveFromISR &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; vListInsertEnd
 </UL>
-<BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGiveFromISR
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOIntClear
+<BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGiveFromISR
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOIntClear
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOIntStatus
 </UL>
 <BR>[Address Reference Count : 2]<UL><LI> startup_tm4c123.o(RESET)
@@ -1288,7 +1288,7 @@ Global Symbols
 <P><STRONG><a name="[e]"></a>GPIOE_Handler</STRONG> (Thumb, 124 bytes, Stack size 8 bytes, main.o(.text.GPIOE_Handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = GPIOE_Handler
 </UL>
-<BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOIntClear
+<BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOIntClear
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOIntStatus
 </UL>
 <BR>[Address Reference Count : 2]<UL><LI> startup_tm4c123.o(RESET)
@@ -1316,7 +1316,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_tm4c123.o(.text)
 </UL>
-<P><STRONG><a name="[7a]"></a>d_motor_down_task</STRONG> (Thumb, 252 bytes, Stack size 24 bytes, main.o(.text.d_motor_down_task))
+<P><STRONG><a name="[7a]"></a>d_motor_down_task</STRONG> (Thumb, 286 bytes, Stack size 24 bytes, main.o(.text.d_motor_down_task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 236<LI>Call Chain = d_motor_down_task &rArr; xQueueGenericSend &rArr; prvUnlockQueue &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; vListInsertEnd
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinRead
@@ -1328,8 +1328,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.text.main)
 </UL>
-<P><STRONG><a name="[7b]"></a>d_motor_up_task</STRONG> (Thumb, 254 bytes, Stack size 24 bytes, main.o(.text.d_motor_up_task))
-<BR><BR>[Stack]<UL><LI>Max Depth = 236<LI>Call Chain = d_motor_up_task &rArr; xQueueGenericSend &rArr; prvUnlockQueue &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; vListInsertEnd
+<P><STRONG><a name="[7b]"></a>d_motor_up_task</STRONG> (Thumb, 288 bytes, Stack size 32 bytes, main.o(.text.d_motor_up_task))
+<BR><BR>[Stack]<UL><LI>Max Depth = 244<LI>Call Chain = d_motor_up_task &rArr; xQueueGenericSend &rArr; prvUnlockQueue &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; vListInsertEnd
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinRead
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;motor_run
@@ -1370,7 +1370,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[8b]"></a>main</STRONG> (Thumb, 546 bytes, Stack size 64 bytes, main.o(.text.main))
+<P><STRONG><a name="[8b]"></a>main</STRONG> (Thumb, 526 bytes, Stack size 64 bytes, main.o(.text.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 316<LI>Call Chain = main &rArr; xQueueCreateMutex &rArr; prvInitialiseMutex &rArr; xQueueGenericSend &rArr; prvUnlockQueue &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; vListInsertEnd
 </UL>
 <BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
@@ -1428,8 +1428,8 @@ Global Symbols
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;p_motor_up_task
 </UL>
 
-<P><STRONG><a name="[78]"></a>p_motor_down_task</STRONG> (Thumb, 252 bytes, Stack size 24 bytes, main.o(.text.p_motor_down_task))
-<BR><BR>[Stack]<UL><LI>Max Depth = 236<LI>Call Chain = p_motor_down_task &rArr; xQueueGenericSend &rArr; prvUnlockQueue &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; vListInsertEnd
+<P><STRONG><a name="[78]"></a>p_motor_down_task</STRONG> (Thumb, 338 bytes, Stack size 32 bytes, main.o(.text.p_motor_down_task))
+<BR><BR>[Stack]<UL><LI>Max Depth = 244<LI>Call Chain = p_motor_down_task &rArr; xQueueGenericSend &rArr; prvUnlockQueue &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; vListInsertEnd
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinRead
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;motor_run
@@ -1440,8 +1440,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.text.main)
 </UL>
-<P><STRONG><a name="[79]"></a>p_motor_up_task</STRONG> (Thumb, 254 bytes, Stack size 24 bytes, main.o(.text.p_motor_up_task))
-<BR><BR>[Stack]<UL><LI>Max Depth = 236<LI>Call Chain = p_motor_up_task &rArr; xQueueGenericSend &rArr; prvUnlockQueue &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; vListInsertEnd
+<P><STRONG><a name="[79]"></a>p_motor_up_task</STRONG> (Thumb, 328 bytes, Stack size 32 bytes, main.o(.text.p_motor_up_task))
+<BR><BR>[Stack]<UL><LI>Max Depth = 244<LI>Call Chain = p_motor_up_task &rArr; xQueueGenericSend &rArr; prvUnlockQueue &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; vListInsertEnd
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinRead
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;motor_run
@@ -1577,7 +1577,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = vPortValidateInterruptPriority
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSendFromISR
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGiveFromISR
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGiveFromISR
 </UL>
 
 <P><STRONG><a name="[d6]"></a>vQueueWaitForMessageRestricted</STRONG> (Thumb, 100 bytes, Stack size 24 bytes, queue.o(.text.vQueueWaitForMessageRestricted))
@@ -1738,7 +1738,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTimerGenericCommand
 </UL>
 
-<P><STRONG><a name="[96]"></a>xQueueGiveFromISR</STRONG> (Thumb, 336 bytes, Stack size 64 bytes, queue.o(.text.xQueueGiveFromISR))
+<P><STRONG><a name="[97]"></a>xQueueGiveFromISR</STRONG> (Thumb, 336 bytes, Stack size 64 bytes, queue.o(.text.xQueueGiveFromISR))
 <BR><BR>[Stack]<UL><LI>Max Depth = 180<LI>Call Chain = xQueueGiveFromISR &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; vListInsertEnd
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
@@ -1872,7 +1872,7 @@ Global Symbols
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReset
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvNotifyQueueSetContainer
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGiveFromISR
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGiveFromISR
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueSemaphoreTake
 </UL>
@@ -1920,7 +1920,7 @@ Global Symbols
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeGPIOInput
 </UL>
 
-<P><STRONG><a name="[97]"></a>GPIOIntClear</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, gpio.o(i.GPIOIntClear))
+<P><STRONG><a name="[96]"></a>GPIOIntClear</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, gpio.o(i.GPIOIntClear))
 <BR><BR>[Called By]<UL><LI><a href="#[d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOD_Handler
 <LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOE_Handler
 </UL>
@@ -2094,7 +2094,7 @@ Local Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSendFromISR
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGiveFromISR
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGiveFromISR
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 </UL>
 
