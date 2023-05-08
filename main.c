@@ -17,6 +17,33 @@
 bool up_limit = false;
 bool down_limit = false;
 bool driver_flag = false;
+bool lock_flag = false;
+
+void GPIOC_Handler()
+{
+	GPIOIntClear(GPIOC_BASE, GPIO_INT_PIN_4);
+	lock_flag^=0x1;
+	
+}
+
+void lock_init()
+{
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
+	while (!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOC))
+		;
+	GPIOUnlockPin(GPIOC_BASE, GPIO_PIN_4);
+	GPIOPinTypeGPIOInput(GPIOC_BASE, GPIO_PIN_4);
+	GPIOPadConfigSet(GPIOC_BASE, GPIO_PIN_4 , GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPU);
+
+	GPIOIntEnable(GPIOC_BASE, GPIO_INT_PIN_4);
+	GPIOIntTypeSet(GPIOC_BASE, GPIO_PIN_4 , GPIO_FALLING_EDGE);
+	GPIOIntRegister(GPIOC_BASE, GPIOC_Handler);
+	IntPrioritySet(INT_GPIOC, 0xA0);
+	
+	
+}
+
+
 
 // Passenger Semaphores
 xSemaphoreHandle p_up_semaphore;
@@ -92,14 +119,14 @@ void p_motor_up_task(void *params)
 			if (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_0))
 			{
 				// Manual
-				while (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_0) && !up_limit && !driver_flag);
+				while (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_0) && !up_limit && !driver_flag && !lock_flag);
 				//while (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_0) && !up_limit );
 			}
 			else
 			{
 				// Automatic
 				// while (!up_limit && driver_flag )
-				while (!up_limit && !driver_flag)
+				while (!up_limit && !driver_flag && !lock_flag)
 				{
 					int down = GPIOPinRead(GPIOD_BASE, GPIO_PIN_1);
 					if (!down)
@@ -134,13 +161,13 @@ void p_motor_down_task(void *params)
 			{
 				// Manual
 				//while (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_1) && !down_limit && driver_flag){}
-				while (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_1) && !down_limit && !driver_flag);
+				while (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_1) && !down_limit && !driver_flag && !lock_flag);
 			}
 			else
 			{
 				// Automatic
 				//while (!down_limit && driver_flag)
-				while (!down_limit && !driver_flag)
+				while (!down_limit && !driver_flag && !lock_flag)
 				{
 					int up = GPIOPinRead(GPIOD_BASE, GPIO_PIN_0);
 					if (!up)
@@ -238,7 +265,7 @@ void GPIOD_Handler(void)
 	// Passenger_up
 	if (GPIOIntStatus(GPIOD_BASE, true) == 1 << 0)
 	{
-		if (driver_flag)
+		if (driver_flag || lock_flag)
 		{
 			GPIOIntClear(GPIOD_BASE, GPIO_INT_PIN_0);
 		}
@@ -253,7 +280,7 @@ void GPIOD_Handler(void)
 	// Passenger_down
 	else if (GPIOIntStatus(GPIOD_BASE, true) == 1 << 1)
 	{
-		if (driver_flag)
+		if (driver_flag || lock_flag)
 		{
 			GPIOIntClear(GPIOD_BASE, GPIO_INT_PIN_1);
 		}
@@ -304,6 +331,7 @@ int main()
 
 	limit_init();
 	motor_init();
+	lock_init();
 
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
 	while (!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOD))
