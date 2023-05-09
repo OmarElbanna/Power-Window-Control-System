@@ -44,7 +44,20 @@ SemaphoreHandle_t jam_semaphore;
 // 												Interrupt Service Routines												//
 //																																					//
 //**************************************************************************//
+void buttons_init(void)
+{
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
+	while (!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOD))
+		;
+	GPIOUnlockPin(GPIOD_BASE, GPIO_PIN_3 | GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2);
+	GPIOPinTypeGPIOInput(GPIOD_BASE, GPIO_PIN_3 | GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2);
+	GPIOPadConfigSet(GPIOD_BASE, GPIO_PIN_3 | GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPD);
 
+	GPIOIntEnable(GPIOD_BASE, GPIO_PIN_3 | GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2);
+	GPIOIntTypeSet(GPIOD_BASE, GPIO_PIN_3 | GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_RISING_EDGE);
+	GPIOIntRegister(GPIOD_BASE, GPIOD_Handler);
+	IntPrioritySet(INT_GPIOD, 0xE0);
+}
 // Limits ISR
 void GPIOE_Handler(void)
 {
@@ -386,7 +399,7 @@ void d_motor_down_task(void *params)
 			else
 			{
 				// Automatic
-				while (!down_limit )
+				while (!down_limit)
 				{
 					xQueuePeek(q_down_limit, &down_limit, 0);
 					int up = GPIOPinRead(GPIOD_BASE, GPIO_PIN_2);
@@ -441,18 +454,7 @@ int main()
 	limit_init();
 	motor_init();
 	PortC_init();
-
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
-	while (!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOD))
-		;
-	GPIOUnlockPin(GPIOD_BASE, GPIO_PIN_3 | GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2);
-	GPIOPinTypeGPIOInput(GPIOD_BASE, GPIO_PIN_3 | GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2);
-	GPIOPadConfigSet(GPIOD_BASE, GPIO_PIN_3 | GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPU);
-
-	GPIOIntEnable(GPIOD_BASE, GPIO_PIN_3 | GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2);
-	GPIOIntTypeSet(GPIOD_BASE, GPIO_PIN_3 | GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_FALLING_EDGE);
-	GPIOIntRegister(GPIOD_BASE, GPIOD_Handler);
-	IntPrioritySet(INT_GPIOD, 0xE0);
+	buttons_init();
 
 	xTaskCreate(p_motor_down_task, "down", 240, NULL, 2, NULL);
 	xTaskCreate(p_motor_up_task, "up", 240, NULL, 2, NULL);
