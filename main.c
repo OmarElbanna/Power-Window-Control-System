@@ -20,7 +20,7 @@
 //**************************************************************************//
 
 // Flags 
-bool up_limit = false;
+//bool up_limit = false;
 bool down_limit = false;
 bool driver_flag = false;
 bool lock_flag = false;
@@ -54,13 +54,18 @@ void GPIOE_Handler(void)
 {
 	if (GPIOIntStatus(GPIOE_BASE, true) == 1 << 0)
 	{
+		BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 		down_limit = false;
-		up_limit = true;
+		//up_limit = true;
+		int value = 1;
+		xQueueOverwriteFromISR(q_up_limit, &value, &xHigherPriorityTaskWoken);
 		GPIOIntClear(GPIOE_BASE, GPIO_INT_PIN_0);
 	}
 	else if (GPIOIntStatus(GPIOE_BASE, true) == 1 << 1)
 	{
-		up_limit = false;
+		//up_limit = false;
+		int value = 0;
+		xQueueOverwriteFromISR(q_up_limit, &value, 0);
 		down_limit = true;
 		GPIOIntClear(GPIOE_BASE, GPIO_INT_PIN_1);
 	}
@@ -195,6 +200,16 @@ void delay(int ms)
 // 																Tasks																			//
 //																																					//
 //**************************************************************************//
+
+// queue initialization task
+void q_init(void *params){
+	for(;;){
+		int up_initial = 0;
+		xQueueSendToBack(q_up_limit, &up_initial, 0);
+		vTaskSuspend(NULL);
+	}
+}
+
 // Passanager Up Task
 void p_motor_up_task(void *params)
 {
@@ -204,6 +219,8 @@ void p_motor_up_task(void *params)
 		xSemaphoreTake(p_up_semaphore, portMAX_DELAY);
 		xSemaphoreTake(mutex, portMAX_DELAY);
 		//driver_flag = false;
+		int up_limit;
+		xQueuePeek(q_up_limit, &up_limit, 0);
 		if (up_limit)
 		{
 			xSemaphoreGive(mutex);
@@ -217,8 +234,10 @@ void p_motor_up_task(void *params)
 			if (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_0))
 			{
 				// Manual
-				while (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_0) && !up_limit && !driver_flag && !lock_flag && !jam_flag);
-				//while (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_0) && !up_limit );
+				while (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_0) && !up_limit && !driver_flag && !lock_flag && !jam_flag){
+					xQueuePeek(q_up_limit, &up_limit, 0);
+				}
+				
 			}
 			else
 			{
@@ -226,6 +245,7 @@ void p_motor_up_task(void *params)
 				// while (!up_limit && driver_flag )
 				while (!up_limit && !driver_flag && !lock_flag && !jam_flag)
 				{
+					xQueuePeek(q_up_limit, &up_limit, 0);
 					int down = GPIOPinRead(GPIOD_BASE, GPIO_PIN_1);
 					if (!down)
 						break;
@@ -254,7 +274,9 @@ void p_motor_down_task(void *params)
 		{
 			motor_stop();
 			motor_run(ANTICLOCKWISE);
-			up_limit = false;
+			//up_limit = false;
+			int value = 0;
+			xQueueOverwrite(q_up_limit, &value);
 			delay(2000);
 			if (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_1))
 			{
@@ -286,6 +308,8 @@ void d_motor_up_task(void *params)
 	{
 		xSemaphoreTake(d_up_semaphore, portMAX_DELAY);
 		xSemaphoreTake(mutex, portMAX_DELAY);
+		int up_limit;
+		xQueuePeek(q_up_limit, &up_limit, 0);
 		if (up_limit)
 		{
 			driver_flag = false;
@@ -337,7 +361,9 @@ void d_motor_down_task(void *params)
 		{
 			motor_stop();
 			motor_run(ANTICLOCKWISE);
-			up_limit = false;
+			//up_limit = false;
+			int value = 0;
+			xQueueOverwrite(q_up_limit, &value);
 			delay(2000);
 			if (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_3))
 			{
@@ -400,15 +426,14 @@ int main()
 	
 	vSemaphoreCreateBinary(jam_semaphore);
 	
-	q_up_limit = xQueueCreate( 1, sizeof(int));
+	q_up_limit = xQueueCreate( 1, sizeof(int));	
 
 	limit_init();
 	motor_init();
 	PortC_init();
 
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
-	while (!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOD))
-		;
+	while (!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOD));
 	GPIOUnlockPin(GPIOD_BASE, GPIO_PIN_3 | GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2);
 	GPIOPinTypeGPIOInput(GPIOD_BASE, GPIO_PIN_3 | GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2);
 	GPIOPadConfigSet(GPIOD_BASE, GPIO_PIN_3 | GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPU);
@@ -425,6 +450,7 @@ int main()
 	xTaskCreate(d_motor_up_task, "up", 240, NULL, 3, NULL);
 	xTaskCreate(idle, "idle", 240, NULL, 1, NULL);
 	xTaskCreate(jam, "jam", 240, NULL, 4, NULL);
+	xTaskCreate(q_init, "q_init", 240, NULL, 4, NULL);
 
 	vTaskStartScheduler();
 
