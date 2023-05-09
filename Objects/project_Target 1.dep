@@ -1,10 +1,10 @@
 Dependencies for Project 'project', Target 'Target 1': (DO NOT MODIFY !)
 CompilerVersion: 6190000::V6.19::ARMCLANG
-F (.\main.c)(0x64594300)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I C:/ti/TivaWare_C_Series-2.2.0.295-I./RTE/RTOS-I./RTE/_Target_1-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.0.1/CMSIS/RTOS2/FreeRTOS/Include"-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.0.1/Source/include"-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.0.1/Source/portable/GCC/ARM_CM4F"-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/Keil/TM4C_DFP/1.1.0/Device/Include/TM4C123"-D__UVISION_VERSION="538" -D_RTE_ -DTM4C123GH6PM -D_RTE_-o ./objects/main.o -MD)
+F (.\main.c)(0x645A3EAD)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I C:/ti/TivaWare_C_Series-2.2.0.295-I./RTE/RTOS-I./RTE/_Target_1-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.0.1/CMSIS/RTOS2/FreeRTOS/Include"-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.0.1/Source/include"-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.0.1/Source/portable/GCC/ARM_CM4F"-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/Keil/TM4C_DFP/1.1.0/Device/Include/TM4C123"-D__UVISION_VERSION="538" -D_RTE_ -DTM4C123GH6PM -D_RTE_-o ./objects/main.o -MD)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x63889D68)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.0.1\Source\include\FreeRTOS.h)(0x5A8E95DE)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x63889D68)
-I (RTE\RTOS\FreeRTOSConfig.h)(0x644D1A63)
+I (RTE\RTOS\FreeRTOSConfig.h)(0x645A1B1A)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h)(0x550FE22C)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm4.h)(0x626F912E)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F912E)
@@ -31,10 +31,10 @@ I (C:\ti\TivaWare_C_Series-2.2.0.295\driverlib\interrupt.h)(0x638C3EC9)
 I (C:\ti\TivaWare_C_Series-2.2.0.295\driverlib\uart.h)(0x638C3EC9)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.0.1\Source\include\queue.h)(0x5A8E95DE)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.0.1\Source\include\semphr.h)(0x5A8E95DE)
-I (motor.h)(0x64553E7E)
-F (.\motor.h)(0x64553E7E)()
-F (.\motor.c)(0x64590585)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I C:/ti/TivaWare_C_Series-2.2.0.295-I./RTE/RTOS-I./RTE/_Target_1-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.0.1/CMSIS/RTOS2/FreeRTOS/Include"-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.0.1/Source/include"-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.0.1/Source/portable/GCC/ARM_CM4F"-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/Keil/TM4C_DFP/1.1.0/Device/Include/TM4C123"-D__UVISION_VERSION="538" -D_RTE_ -DTM4C123GH6PM -D_RTE_-o ./objects/motor.o -MD)
-I (motor.h)(0x64553E7E)
+I (motor.h)(0x645A13B8)
+F (.\motor.h)(0x645A13B8)()
+F (.\motor.c)(0x645A1388)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O0 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I C:/ti/TivaWare_C_Series-2.2.0.295-I./RTE/RTOS-I./RTE/_Target_1-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.0.1/CMSIS/RTOS2/FreeRTOS/Include"-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.0.1/Source/include"-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.0.1/Source/portable/GCC/ARM_CM4F"-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"-I"C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/Keil/TM4C_DFP/1.1.0/Device/Include/TM4C123"-D__UVISION_VERSION="538" -D_RTE_ -DTM4C123GH6PM -D_RTE_-o ./objects/motor.o -MD)
+I (motor.h)(0x645A13B8)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x63889D68)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x63889D68)
 I (C:\ti\TivaWare_C_Series-2.2.0.295\driverlib\gpio.h)(0x638C3EC9)
@@ -43,7 +43,7 @@ I (C:\ti\TivaWare_C_Series-2.2.0.295\driverlib\systick.h)(0x638C3EC9)
 I (C:\ti\TivaWare_C_Series-2.2.0.295\driverlib\interrupt.h)(0x638C3EC9)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.0.1\Source\include\FreeRTOS.h)(0x5A8E95DE)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x63889D68)
-I (RTE\RTOS\FreeRTOSConfig.h)(0x644D1A63)
+I (RTE\RTOS\FreeRTOSConfig.h)(0x645A1B1A)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h)(0x550FE22C)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm4.h)(0x626F912E)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F912E)
@@ -80,7 +80,7 @@ I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Incl
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armclang.h)(0x626F912E)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.0.1\Source\include\FreeRTOS.h)(0x5A8E95DE)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x63889D68)
-I (RTE\RTOS\FreeRTOSConfig.h)(0x644D1A63)
+I (RTE\RTOS\FreeRTOSConfig.h)(0x645A1B1A)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h)(0x550FE22C)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm4.h)(0x626F912E)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F912E)
@@ -103,7 +103,7 @@ I (C:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x63889D68)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.0.1\Source\include\FreeRTOS.h)(0x5A8E95DE)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x63889D68)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x63889D68)
-I (RTE\RTOS\FreeRTOSConfig.h)(0x644D1A63)
+I (RTE\RTOS\FreeRTOSConfig.h)(0x645A1B1A)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h)(0x550FE22C)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm4.h)(0x626F912E)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F912E)
@@ -124,7 +124,7 @@ F (C:/Users/Omar Elbanna/AppData/Local/Arm/Packs/ARM/CMSIS-FreeRTOS/10.0.1/Sourc
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.0.1\Source\include\FreeRTOS.h)(0x5A8E95DE)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x63889D68)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x63889D68)
-I (RTE\RTOS\FreeRTOSConfig.h)(0x644D1A63)
+I (RTE\RTOS\FreeRTOSConfig.h)(0x645A1B1A)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h)(0x550FE22C)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm4.h)(0x626F912E)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F912E)
@@ -147,7 +147,7 @@ I (C:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x63889D68)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.0.1\Source\include\FreeRTOS.h)(0x5A8E95DE)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x63889D68)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x63889D68)
-I (RTE\RTOS\FreeRTOSConfig.h)(0x644D1A63)
+I (RTE\RTOS\FreeRTOSConfig.h)(0x645A1B1A)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h)(0x550FE22C)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm4.h)(0x626F912E)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F912E)
@@ -171,7 +171,7 @@ I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x63889D68)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.0.1\Source\include\FreeRTOS.h)(0x5A8E95DE)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x63889D68)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x63889D68)
-I (RTE\RTOS\FreeRTOSConfig.h)(0x644D1A63)
+I (RTE\RTOS\FreeRTOSConfig.h)(0x645A1B1A)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h)(0x550FE22C)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm4.h)(0x626F912E)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F912E)
@@ -195,7 +195,7 @@ I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x63889D68)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.0.1\Source\include\FreeRTOS.h)(0x5A8E95DE)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x63889D68)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x63889D68)
-I (RTE\RTOS\FreeRTOSConfig.h)(0x644D1A63)
+I (RTE\RTOS\FreeRTOSConfig.h)(0x645A1B1A)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h)(0x550FE22C)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm4.h)(0x626F912E)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F912E)
@@ -219,7 +219,7 @@ I (C:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x63889D68)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.0.1\Source\include\FreeRTOS.h)(0x5A8E95DE)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x63889D68)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x63889D68)
-I (RTE\RTOS\FreeRTOSConfig.h)(0x644D1A63)
+I (RTE\RTOS\FreeRTOSConfig.h)(0x645A1B1A)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h)(0x550FE22C)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm4.h)(0x626F912E)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_version.h)(0x626F912E)
@@ -239,4 +239,4 @@ I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.0.1\Sourc
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.0.1\Source\include\list.h)(0x5A8E95DE)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.0.1\Source\include\queue.h)(0x5A8E95DE)
 I (C:\Users\Omar Elbanna\AppData\Local\Arm\Packs\ARM\CMSIS-FreeRTOS\10.0.1\Source\include\timers.h)(0x5A8E95DE)
-F (RTE/RTOS/FreeRTOSConfig.h)(0x644D1A63)()
+F (RTE/RTOS/FreeRTOSConfig.h)(0x645A1B1A)()

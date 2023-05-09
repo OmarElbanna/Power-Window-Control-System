@@ -9,9 +9,11 @@
 #include "driverlib/sysctl.h"
 #define CLOCKWISE 0
 #define ANTICLOCKWISE 1
+#define IDLE 2
 void motor_init(void);
 void motor_run(uint8_t direction);
 void motor_stop(void);
+uint8_t get_state();
 
 
 

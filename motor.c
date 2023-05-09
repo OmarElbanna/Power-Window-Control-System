@@ -27,3 +27,16 @@ void motor_stop(void)
 {
 	GPIOPinWrite(GPIOB_BASE,GPIO_PIN_1|GPIO_PIN_0,0x00);
 }
+
+uint8_t get_state(void)
+{
+	if (GPIOPinRead(GPIOB_BASE,GPIO_PIN_1))
+	{
+		return CLOCKWISE;
+	}
+	else if (GPIOPinRead(GPIOB_BASE,GPIO_PIN_0))
+	{
+		return ANTICLOCKWISE;
+	}
+	return IDLE;
+}
