@@ -26,20 +26,7 @@ Project File Date:  05/09/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
-Rebuild target 'Target 1'
-assembling startup_TM4C123.s...
-compiling freertos_evr.c...
-compiling system_TM4C123.c...
-compiling motor.c...
-compiling list.c...
-compiling port.c...
-compiling main.c...
-compiling heap_1.c...
-compiling timers.c...
-compiling queue.c...
-compiling tasks.c...
-linking...
-Program Size: Code=18792 RO-data=1516 RW-data=1644 ZI-data=17372  
+Build target 'Target 1'
 ".\Objects\project.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -80,13 +67,13 @@ Package Vendor: Keil
       Include file:  Config/ARMCM/FreeRTOSConfig.h
 
    * Component: ARM.FreeRTOS::RTOS:Core:Cortex-M:10.5.1
-      Source file:   Source/queue.c
       Include file:  Source/include/queue.h
-      Include file:  Source/include/task.h
-      Include file:  Source/include/FreeRTOS.h
       Include file:  Source/include/semphr.h
-      Source file:   Source/tasks.c
+      Include file:  Source/include/task.h
       Source file:   Source/list.c
+      Include file:  Source/include/FreeRTOS.h
+      Source file:   Source/tasks.c
+      Source file:   Source/queue.c
       Source file:   Source/portable/GCC/ARM_CM4F/port.c
       Source file:   CMSIS/RTOS2/FreeRTOS/Source/freertos_evr.c
 
@@ -101,8 +88,8 @@ Package Vendor: Keil
 
    * Component: Keil::Device:Startup:1.0.1
       Include file:  Device/Include/TM4C123/TM4C123.h
-      Source file:   Device/Source/ARM/startup_TM4C123.s
       Source file:   Device/Source/system_TM4C123.c
+      Source file:   Device/Source/ARM/startup_TM4C123.s
 Build Time Elapsed:  00:00:01
 </pre>
 </body>

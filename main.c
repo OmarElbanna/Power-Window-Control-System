@@ -21,12 +21,17 @@
 
 // Flags
 // bool up_limit = false;
-bool down_limit = false;
+// bool down_limit = false;
 bool driver_flag = false;
 bool lock_flag = false;
 bool jam_flag = false;
 QueueHandle_t q_up_limit;
 QueueHandle_t q_down_limit;
+QueueHandle_t q_driver_flag;
+QueueHandle_t q_lock_flag;
+QueueHandle_t q_jam__flag;
+
+
 SemaphoreHandle_t mutex;
 
 // Passenger Semaphores
@@ -54,7 +59,6 @@ void buttons_init(void)
 	GPIOUnlockPin(GPIOD_BASE, GPIO_PIN_3 | GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2);
 	GPIOPinTypeGPIOInput(GPIOD_BASE, GPIO_PIN_3 | GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2);
 	GPIOPadConfigSet(GPIOD_BASE, GPIO_PIN_3 | GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPD);
-
 	GPIOIntEnable(GPIOD_BASE, GPIO_PIN_3 | GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2);
 	GPIOIntTypeSet(GPIOD_BASE, GPIO_PIN_3 | GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_RISING_EDGE);
 	GPIOIntRegister(GPIOD_BASE, GPIOD_Handler);
@@ -143,7 +147,7 @@ void GPIOC_Handler()
 		GPIOIntClear(GPIOC_BASE, GPIO_INT_PIN_4);
 		lock_flag ^= 0x1;
 	}
-	/*else if (GPIOIntStatus(GPIOC_BASE, true) == 1 << 5)
+	else if (GPIOIntStatus(GPIOC_BASE, true) == 1 << 5)
 	{
 		GPIOIntClear(GPIOC_BASE, GPIO_INT_PIN_5);
 		if (get_state() == CLOCKWISE)
@@ -154,7 +158,6 @@ void GPIOC_Handler()
 			portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
 		}
 	}
-	*/
 }
 
 // Lock & Jam
@@ -169,7 +172,7 @@ void PortC_init()
 
 	GPIOIntEnable(GPIOC_BASE, GPIO_INT_PIN_4 | GPIO_PIN_5);
 	GPIOIntTypeSet(GPIOC_BASE, GPIO_PIN_5, GPIO_FALLING_EDGE);
-	GPIOIntTypeSet(GPIOC_BASE, GPIO_PIN_4, GPIO_BOTH_EDGES);
+	GPIOIntTypeSet(GPIOC_BASE, GPIO_PIN_4, GPIO_FALLING_EDGE);
 	GPIOIntRegister(GPIOC_BASE, GPIOC_Handler);
 	IntPrioritySet(INT_GPIOC, 0xA0);
 }
