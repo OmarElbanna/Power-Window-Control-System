@@ -25,7 +25,7 @@
 bool driver_flag = false;
 // bool lock_flag = false;
 // bool jam_flag = false;
-QueueHandle_t q_up_limit, q_down_limit, q_driver_flag, q_lock_flag, q_jam__flag;
+QueueHandle_t q_up_limit, q_down_limit, q_driver_flag, q_lock_flag, q_jam_flag;
 
 SemaphoreHandle_t mutex;
 
@@ -224,7 +224,7 @@ void q_init(void *params)
 		xQueueSendToBack(q_down_limit, &up_initial, 0);
 		xQueueSendToBack(q_driver_flag, &up_initial, 0);
 		xQueueSendToBack(q_lock_flag, &up_initial, 0);
-		xQueueSendToBack(q_jam__flag, &up_initial, 0);
+		xQueueSendToBack(q_jam_flag, &up_initial, 0);
 
 		vTaskSuspend(NULL);
 	}
@@ -493,7 +493,7 @@ int main()
 	q_down_limit = xQueueCreate(1, sizeof(int));
 	q_lock_flag = xQueueCreate(1, sizeof(int));
 	q_driver_flag = xQueueCreate(1, sizeof(int));
-	q_jam__flag = xQueueCreate(1, sizeof(int));
+	q_jam_flag = xQueueCreate(1, sizeof(int));
 
 	limit_init();
 	motor_init();
