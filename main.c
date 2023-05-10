@@ -22,7 +22,7 @@
 // Flags
 // bool up_limit = false;
 // bool down_limit = false;
-bool driver_flag = false;
+// bool driver_flag = false;
 // bool lock_flag = false;
 // bool jam_flag = false;
 QueueHandle_t q_up_limit, q_down_limit, q_driver_flag, q_lock_flag, q_jam_flag;
@@ -46,6 +46,7 @@ SemaphoreHandle_t jam_semaphore;
 //**************************************************************************//
 
 void GPIOD_Handler(void);
+void delay(int ms);
 void buttons_init(void)
 {
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
@@ -80,21 +81,27 @@ void GPIOE_Handler(void)
 		xQueueOverwriteFromISR(q_up_limit, &value0, &xHigherPriorityTaskWoken);
 		GPIOIntClear(GPIOE_BASE, GPIO_INT_PIN_1);
 	}
+	else if (GPIOIntStatus(GPIOE_BASE, true) == 3)
+	{
+		GPIOIntClear(GPIOE_BASE, GPIO_INT_PIN_1 | GPIO_INT_PIN_0);
+	}
 }
 
 void GPIOD_Handler(void)
 {
 	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 
-	int lock_flag;
+	int lock_flag, driver_value = 1,driver_flag=0;
 
 	xQueuePeekFromISR(q_lock_flag, &lock_flag);
+	xQueuePeekFromISR(q_driver_flag, &driver_flag);
 
 	// driver_up
 
 	if (GPIOIntStatus(GPIOD_BASE, true) == 1 << 2)
 	{
-		driver_flag = true;
+		driver_value = 1;
+		xQueueOverwriteFromISR(q_driver_flag, &driver_value, &xHigherPriorityTaskWoken);
 
 		xSemaphoreGiveFromISR(d_up_semaphore, &xHigherPriorityTaskWoken);
 		GPIOIntClear(GPIOD_BASE, GPIO_INT_PIN_2);
@@ -103,7 +110,8 @@ void GPIOD_Handler(void)
 	// driver_down
 	else if (GPIOIntStatus(GPIOD_BASE, true) == 1 << 3)
 	{
-		driver_flag = true;
+		driver_value = 1;
+		xQueueOverwriteFromISR(q_driver_flag, &driver_value, &xHigherPriorityTaskWoken);
 
 		xSemaphoreGiveFromISR(d_down_semaphore, &xHigherPriorityTaskWoken);
 		GPIOIntClear(GPIOD_BASE, GPIO_INT_PIN_3);
@@ -112,7 +120,8 @@ void GPIOD_Handler(void)
 	// Passenger_up
 	else if (GPIOIntStatus(GPIOD_BASE, true) == 1 << 0)
 	{
-
+		
+		
 		if (driver_flag || lock_flag)
 		{
 			GPIOIntClear(GPIOD_BASE, GPIO_INT_PIN_0);
@@ -127,6 +136,8 @@ void GPIOD_Handler(void)
 	// Passenger_down
 	else if (GPIOIntStatus(GPIOD_BASE, true) == 1 << 1)
 	{
+		//xQueuePeekFromISR(q_driver_flag, &driver_flag);
+		
 		if (driver_flag || lock_flag)
 		{
 			GPIOIntClear(GPIOD_BASE, GPIO_INT_PIN_1);
@@ -177,8 +188,8 @@ void PortC_init()
 	GPIOPadConfigSet(GPIOC_BASE, GPIO_PIN_4 | GPIO_PIN_5, GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPD);
 
 	GPIOIntEnable(GPIOC_BASE, GPIO_INT_PIN_4 | GPIO_PIN_5);
-	GPIOIntTypeSet(GPIOC_BASE, GPIO_PIN_5, GPIO_FALLING_EDGE);
-	GPIOIntTypeSet(GPIOC_BASE, GPIO_PIN_4, GPIO_FALLING_EDGE);
+	GPIOIntTypeSet(GPIOC_BASE, GPIO_PIN_5 | GPIO_PIN_4, GPIO_FALLING_EDGE);
+	// GPIOIntTypeSet(GPIOC_BASE, GPIO_PIN_4, GPIO_FALLING_EDGE);
 	GPIOIntRegister(GPIOC_BASE, GPIOC_Handler);
 	IntPrioritySet(INT_GPIOC, 0xA0);
 }
@@ -238,10 +249,10 @@ void p_motor_up_task(void *params)
 	{
 		xSemaphoreTake(p_up_semaphore, portMAX_DELAY);
 		xSemaphoreTake(mutex, portMAX_DELAY);
-		// driver_flag = false;
-		int up_limit, lock_flag, jam_flag;
-		xQueuePeek(q_jam_flag, &jam_flag, 0);
 
+		int up_limit, lock_flag, jam_flag, driver_flag;
+		xQueuePeek(q_jam_flag, &jam_flag, 0);
+		xQueuePeek(q_driver_flag, &driver_flag, 0);
 		xQueuePeek(q_up_limit, &up_limit, 0);
 		xQueuePeek(q_lock_flag, &lock_flag, 0);
 
@@ -253,7 +264,7 @@ void p_motor_up_task(void *params)
 		{
 			motor_stop();
 			motor_run(CLOCKWISE);
-			// down_limit = false;
+
 			int value = 0;
 			xQueueOverwrite(q_down_limit, &value);
 			delay(500);
@@ -265,6 +276,7 @@ void p_motor_up_task(void *params)
 					xQueuePeek(q_up_limit, &up_limit, 0);
 					xQueuePeek(q_lock_flag, &lock_flag, 0);
 					xQueuePeek(q_jam_flag, &jam_flag, 0);
+					xQueuePeek(q_driver_flag, &driver_flag, 0);
 				}
 			}
 			else
@@ -273,9 +285,11 @@ void p_motor_up_task(void *params)
 				// while (!up_limit && driver_flag )
 				while (!up_limit && !driver_flag && !lock_flag && !jam_flag)
 				{
+
 					xQueuePeek(q_up_limit, &up_limit, 0);
 					xQueuePeek(q_jam_flag, &jam_flag, 0);
 					xQueuePeek(q_lock_flag, &lock_flag, 0);
+					xQueuePeek(q_driver_flag, &driver_flag, 0);
 
 					int down = GPIOPinRead(GPIOD_BASE, GPIO_PIN_1);
 					if (down)
@@ -300,12 +314,11 @@ void p_motor_down_task(void *params)
 		xSemaphoreTake(p_down_semaphore, portMAX_DELAY);
 		xSemaphoreTake(mutex, portMAX_DELAY);
 
-		// driver_flag = false;
-
-		int down_limit, lock_flag;
+		int down_limit, lock_flag, driver_flag;
 
 		xQueuePeek(q_lock_flag, &lock_flag, 0);
 		xQueuePeek(q_down_limit, &down_limit, 0);
+		xQueuePeek(q_driver_flag, &driver_flag, 0);
 
 		if (down_limit)
 		{
@@ -324,6 +337,8 @@ void p_motor_down_task(void *params)
 				// Manual
 				while (GPIOPinRead(GPIOD_BASE, GPIO_PIN_1) && !down_limit && !driver_flag && !lock_flag)
 				{
+					xQueuePeek(q_driver_flag, &driver_flag, 0);
+
 					xQueuePeek(q_down_limit, &down_limit, 0);
 					xQueuePeek(q_lock_flag, &lock_flag, 0);
 				}
@@ -336,6 +351,7 @@ void p_motor_down_task(void *params)
 				{
 					xQueuePeek(q_down_limit, &down_limit, 0);
 					xQueuePeek(q_lock_flag, &lock_flag, 0);
+					xQueuePeek(q_driver_flag, &driver_flag, 0);
 
 					int up = GPIOPinRead(GPIOD_BASE, GPIO_PIN_0);
 					if (up)
@@ -355,12 +371,12 @@ void d_motor_up_task(void *params)
 	{
 		xSemaphoreTake(d_up_semaphore, portMAX_DELAY);
 		xSemaphoreTake(mutex, portMAX_DELAY);
-		int up_limit, jam_flag;
+		int up_limit, jam_flag, driver_flag = 0;
 		xQueuePeek(q_jam_flag, &jam_flag, 0);
 		xQueuePeek(q_up_limit, &up_limit, 0);
 		if (up_limit)
 		{
-			driver_flag = false;
+			xQueueOverwrite(q_driver_flag, &driver_flag);
 			xSemaphoreGive(mutex);
 		}
 		else
@@ -395,8 +411,7 @@ void d_motor_up_task(void *params)
 			motor_stop();
 			int jam_value = 0;
 			xQueueOverwrite(q_jam_flag, &jam_value);
-
-			driver_flag = false;
+			xQueueOverwrite(q_driver_flag, &driver_flag);
 
 			xSemaphoreGive(mutex);
 		}
@@ -411,12 +426,13 @@ void d_motor_down_task(void *params)
 		xSemaphoreTake(d_down_semaphore, portMAX_DELAY);
 		xSemaphoreTake(mutex, portMAX_DELAY);
 
-		int down_limit;
+		int down_limit, driver_flag = 0;
 		xQueuePeek(q_down_limit, &down_limit, 0);
 
 		if (down_limit)
 		{
-			driver_flag = false;
+			xQueueOverwrite(q_driver_flag, &driver_flag);
+
 			xSemaphoreGive(mutex);
 		}
 		else
@@ -448,7 +464,7 @@ void d_motor_down_task(void *params)
 				}
 			}
 			motor_stop();
-			driver_flag = false;
+			xQueueOverwrite(q_driver_flag, &driver_flag);
 			xSemaphoreGive(mutex);
 		}
 	}
@@ -473,6 +489,7 @@ void jam(void *params)
 void idle(void *params)
 {
 	for (;;)
+
 	{
 	}
 }
