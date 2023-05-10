@@ -28,18 +28,18 @@ Project File Date:  05/09/2023
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Target 1'
 assembling startup_TM4C123.s...
-compiling list.c...
-compiling system_TM4C123.c...
 compiling freertos_evr.c...
-compiling main.c...
-compiling port.c...
+compiling system_TM4C123.c...
 compiling motor.c...
+compiling list.c...
+compiling port.c...
+compiling main.c...
 compiling heap_1.c...
 compiling timers.c...
 compiling queue.c...
 compiling tasks.c...
 linking...
-Program Size: Code=18956 RO-data=1516 RW-data=1644 ZI-data=17372  
+Program Size: Code=18792 RO-data=1516 RW-data=1644 ZI-data=17372  
 ".\Objects\project.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -80,13 +80,13 @@ Package Vendor: Keil
       Include file:  Config/ARMCM/FreeRTOSConfig.h
 
    * Component: ARM.FreeRTOS::RTOS:Core:Cortex-M:10.5.1
-      Include file:  Source/include/task.h
-      Source file:   Source/list.c
-      Include file:  Source/include/FreeRTOS.h
-      Include file:  Source/include/queue.h
-      Source file:   Source/tasks.c
-      Include file:  Source/include/semphr.h
       Source file:   Source/queue.c
+      Include file:  Source/include/queue.h
+      Include file:  Source/include/task.h
+      Include file:  Source/include/FreeRTOS.h
+      Include file:  Source/include/semphr.h
+      Source file:   Source/tasks.c
+      Source file:   Source/list.c
       Source file:   Source/portable/GCC/ARM_CM4F/port.c
       Source file:   CMSIS/RTOS2/FreeRTOS/Source/freertos_evr.c
 
@@ -94,8 +94,8 @@ Package Vendor: Keil
       Source file:   Source/portable/MemMang/heap_1.c
 
    * Component: ARM.FreeRTOS::RTOS:Timers:10.5.1
-      Source file:   Source/timers.c
       Include file:  Source/include/timers.h
+      Source file:   Source/timers.c
 
    * Component: ARM::CMSIS:CORE:5.6.0
 

@@ -44,6 +44,8 @@ SemaphoreHandle_t jam_semaphore;
 // 												Interrupt Service Routines												//
 //																																					//
 //**************************************************************************//
+
+void GPIOD_Handler(void);
 void buttons_init(void)
 {
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
@@ -141,7 +143,7 @@ void GPIOC_Handler()
 		GPIOIntClear(GPIOC_BASE, GPIO_INT_PIN_4);
 		lock_flag ^= 0x1;
 	}
-	else if (GPIOIntStatus(GPIOC_BASE, true) == 1 << 5)
+	/*else if (GPIOIntStatus(GPIOC_BASE, true) == 1 << 5)
 	{
 		GPIOIntClear(GPIOC_BASE, GPIO_INT_PIN_5);
 		if (get_state() == CLOCKWISE)
@@ -152,6 +154,7 @@ void GPIOC_Handler()
 			portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
 		}
 	}
+	*/
 }
 
 // Lock & Jam
@@ -162,7 +165,7 @@ void PortC_init()
 		;
 	GPIOUnlockPin(GPIOC_BASE, GPIO_PIN_4 | GPIO_PIN_5);
 	GPIOPinTypeGPIOInput(GPIOC_BASE, GPIO_PIN_4 | GPIO_PIN_5);
-	GPIOPadConfigSet(GPIOC_BASE, GPIO_PIN_4 | GPIO_PIN_5, GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPU);
+	GPIOPadConfigSet(GPIOC_BASE, GPIO_PIN_4 | GPIO_PIN_5, GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPD);
 
 	GPIOIntEnable(GPIOC_BASE, GPIO_INT_PIN_4 | GPIO_PIN_5);
 	GPIOIntTypeSet(GPIOC_BASE, GPIO_PIN_5, GPIO_FALLING_EDGE);
@@ -179,7 +182,7 @@ void limit_init()
 		;
 	GPIOUnlockPin(GPIOE_BASE, GPIO_PIN_0 | GPIO_PIN_1);
 	GPIOPinTypeGPIOInput(GPIOE_BASE, GPIO_PIN_0 | GPIO_PIN_1);
-	GPIOPadConfigSet(GPIOE_BASE, GPIO_PIN_0 | GPIO_PIN_1, GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPU);
+	GPIOPadConfigSet(GPIOE_BASE, GPIO_PIN_0 | GPIO_PIN_1, GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPD);
 
 	GPIOIntEnable(GPIOE_BASE, GPIO_INT_PIN_0 | GPIO_PIN_1);
 	GPIOIntTypeSet(GPIOE_BASE, GPIO_PIN_0 | GPIO_PIN_1, GPIO_FALLING_EDGE);
@@ -236,11 +239,11 @@ void p_motor_up_task(void *params)
 			// down_limit = false;
 			int value = 0;
 			xQueueOverwrite(q_down_limit, &value);
-			delay(1000);
-			if (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_0))
+			delay(500);
+			if (GPIOPinRead(GPIOD_BASE, GPIO_PIN_0))
 			{
 				// Manual
-				while (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_0) && !up_limit && !driver_flag && !lock_flag && !jam_flag)
+				while (GPIOPinRead(GPIOD_BASE, GPIO_PIN_0) && !up_limit && !driver_flag && !lock_flag && !jam_flag)
 				{
 					xQueuePeek(q_up_limit, &up_limit, 0);
 				}
@@ -253,7 +256,7 @@ void p_motor_up_task(void *params)
 				{
 					xQueuePeek(q_up_limit, &up_limit, 0);
 					int down = GPIOPinRead(GPIOD_BASE, GPIO_PIN_1);
-					if (!down)
+					if (down)
 						break;
 				}
 			}
@@ -288,11 +291,11 @@ void p_motor_down_task(void *params)
 			// up_limit = false;
 			int value = 0;
 			xQueueOverwrite(q_up_limit, &value);
-			delay(2000);
-			if (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_1))
+			delay(500);
+			if (GPIOPinRead(GPIOD_BASE, GPIO_PIN_1))
 			{
 				// Manual
-				while (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_1) && !down_limit && !driver_flag && !lock_flag)
+				while (GPIOPinRead(GPIOD_BASE, GPIO_PIN_1) && !down_limit && !driver_flag && !lock_flag)
 				{
 					xQueuePeek(q_down_limit, &down_limit, 0);
 				}
@@ -305,7 +308,7 @@ void p_motor_down_task(void *params)
 				{
 					xQueuePeek(q_down_limit, &down_limit, 0);
 					int up = GPIOPinRead(GPIOD_BASE, GPIO_PIN_0);
-					if (!up)
+					if (up)
 						break;
 				}
 			}
@@ -335,11 +338,11 @@ void d_motor_up_task(void *params)
 			motor_run(CLOCKWISE);
 			int value = 0;
 			xQueueOverwrite(q_down_limit, &value);
-			delay(1000);
-			if (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_2))
+			delay(500);
+			if (GPIOPinRead(GPIOD_BASE, GPIO_PIN_2))
 			{
 				// Manual
-				while (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_2) && !up_limit && !jam_flag)
+				while (GPIOPinRead(GPIOD_BASE, GPIO_PIN_2) && !up_limit && !jam_flag)
 				{
 					xQueuePeek(q_up_limit, &up_limit, 0);
 				}
@@ -351,7 +354,7 @@ void d_motor_up_task(void *params)
 				{
 					xQueuePeek(q_up_limit, &up_limit, 0);
 					int down = GPIOPinRead(GPIOD_BASE, GPIO_PIN_3);
-					if (!down)
+					if (down)
 						break;
 				}
 			}
@@ -386,12 +389,12 @@ void d_motor_down_task(void *params)
 			// up_limit = false;
 			int value = 0;
 			xQueueOverwrite(q_up_limit, &value);
-			delay(2000);
-			if (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_3))
+			delay(500);
+			if (GPIOPinRead(GPIOD_BASE, GPIO_PIN_3))
 			{
 				// Manual
 
-				while (!GPIOPinRead(GPIOD_BASE, GPIO_PIN_3) && !down_limit)
+				while (GPIOPinRead(GPIOD_BASE, GPIO_PIN_3) && !down_limit)
 				{
 					xQueuePeek(q_down_limit, &down_limit, 0);
 				}
@@ -403,7 +406,7 @@ void d_motor_down_task(void *params)
 				{
 					xQueuePeek(q_down_limit, &down_limit, 0);
 					int up = GPIOPinRead(GPIOD_BASE, GPIO_PIN_2);
-					if (!up)
+					if (up)
 						break;
 				}
 			}
