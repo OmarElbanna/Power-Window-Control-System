@@ -48,3 +48,8 @@ window during one touch auto close operation.
 |Jam Button|GPIOC Pin 5|
 |Motor In 0|GPIOB Pin 0|
 |Motor In 1|GPIOB Pin 1|
+<br/>
+
+![pins](https://github.com/OmarElbanna/Power-Window-Control-System/assets/96841295/602f3157-4de7-4282-933c-27ae7a7a624d)
+
+
