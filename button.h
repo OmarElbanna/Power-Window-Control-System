@@ -1,3 +1,5 @@
+#ifndef BUTTON_H
+#define BUTTON_H
 #include <stdint.h>
 #include <FreeRTOS.h>
 #include <task.h>
@@ -12,3 +14,11 @@
 #include "queue.h"
 #include "semphr.h"
 #include "motor.h"
+
+void PD_init(void);
+void JL_init();
+void limit_init();
+
+
+
+#endif

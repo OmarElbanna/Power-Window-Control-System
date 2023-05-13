@@ -66,7 +66,7 @@ extern uint32_t SystemCoreClock;
 #define configUSE_RECURSIVE_MUTEXES           1
 #define configUSE_COUNTING_SEMAPHORES         1
 #define configUSE_QUEUE_SETS                  1
-#define configUSE_IDLE_HOOK                   0
+#define configUSE_IDLE_HOOK                   1
 #define configUSE_TICK_HOOK                   0
 #define configUSE_MALLOC_FAILED_HOOK          0
 #define configUSE_16_BIT_TICKS                0
