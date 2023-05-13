@@ -20,10 +20,17 @@ This function automatically stops the power window and moves it
 downward about 0.5 second if foreign matter gets caught in the
 window during one touch auto close operation.
 <br/>
- 
- 
+</ol>
 
- 
+## Implemented Buttons
+![image](https://github.com/OmarElbanna/Power-Window-Control-System/assets/96841295/099be9d0-c9b2-47c6-8be0-0642babc920a)
+
+## Used Components
+<ol>
+ <li> DC Motor</li> ![image](https://github.com/OmarElbanna/Power-Window-Control-System/assets/96841295/3a251684-7c57-4c5c-845f-75c48146ef35)
+
+   
  
  
  </ol>
+
