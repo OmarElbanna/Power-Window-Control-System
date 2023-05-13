@@ -33,6 +33,18 @@ window during one touch auto close operation.
  <li> 9V Power Source</li>
  <li> Regulator</li>
  <li> Dual H Bridge DC Motor Driver L298N</li>
-
  </ol>
-
+ 
+ ## Pins Connections
+ |Component|Tiva C Pin|
+|:--------:|:-----------------------:|
+|Passenger Up Button|GPIOD Pin 0|
+|Passenger Down Button|GPIOD Pin 1|
+|Driver Up Button|GPIOD Pin 2|
+|Driver Down Button|GPIOD Pin 3|
+|Limit Up|GPIOE Pin 0|
+|Limit Down|GPIOE Pin 1|
+|Lock Switch|GPIOC Pin 4|
+|Jam Button|GPIOC Pin 5|
+|Motor In 0|GPIOB Pin 0|
+|Motor In 1|GPIOB Pin 1|
