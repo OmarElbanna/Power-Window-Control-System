@@ -23,7 +23,8 @@ window during one touch auto close operation.
 </ol>
 
 ## Implemented Buttons
-![image](https://github.com/OmarElbanna/Power-Window-Control-System/assets/96841295/099be9d0-c9b2-47c6-8be0-0642babc920a)
+![image](https://github.com/OmarElbanna/Power-Window-Control-System/assets/96841295/c6f0a1e0-8afd-4a0d-a80e-5dccec125c48)
+
 
 ## Used Components
 <ol>
@@ -50,6 +51,6 @@ window during one touch auto close operation.
 |Motor In 1|GPIOB Pin 1|
 <br/>
 
-![pins](https://github.com/OmarElbanna/Power-Window-Control-System/assets/96841295/602f3157-4de7-4282-933c-27ae7a7a624d)
+![pins](https://github.com/OmarElbanna/Power-Window-Control-System/assets/96841295/d667316c-1ceb-4504-aaa3-4cd70db5c2a5)
 
 
