@@ -27,10 +27,12 @@ window during one touch auto close operation.
 
 ## Used Components
 <ol>
- <li> DC Motor</li> ![image](https://github.com/OmarElbanna/Power-Window-Control-System/assets/96841295/3a251684-7c57-4c5c-845f-75c48146ef35)
+ <li> DC Motor</li>
+ <li> Push Buttons</li>
+ <li> ON/OFF Switch</li>
+ <li> 9V Power Source</li>
+ <li> Regulator</li>
+ <li> Dual H Bridge DC Motor Driver L298N</li>
 
-   
- 
- 
  </ol>
 
