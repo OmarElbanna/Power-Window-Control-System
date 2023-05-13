@@ -14,6 +14,7 @@ void motor_init(void);
 void motor_run(uint8_t direction);
 void motor_stop(void);
 uint8_t get_state();
+void delay(int ms);
 
 
 

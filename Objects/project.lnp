@@ -1,6 +1,7 @@
 --cpu=Cortex-M4.fp.sp
 ".\objects\main.o"
 ".\objects\motor.o"
+".\objects\button.o"
 "C:\ti\TivaWare_C_Series-2.2.0.295\driverlib\rvmdk\driverlib.lib"
 ".\objects\startup_tm4c123.o"
 ".\objects\system_tm4c123.o"
